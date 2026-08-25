@@ -9,7 +9,7 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
-  const res = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
+  const res = await fetch(`${API_URL}/api${endpoint}`, { ...options, headers });
   const text = await res.text();
   let data;
   try { data = JSON.parse(text); } catch { data = { message: text || "Request failed" }; }
