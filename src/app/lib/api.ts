@@ -8,7 +8,9 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
     headers["Authorization"] = `Bearer ${token}`;
   }
   const res = await fetch(`/api${endpoint}`, { ...options, headers });
-  const data = await res.json();
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch { data = { message: text || "Request failed" }; }
   if (!res.ok) throw new Error(data.message || "Something went wrong");
   return data;
 }
